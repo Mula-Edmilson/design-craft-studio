@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingBag, Menu, X, User, LogOut, PaintbrushVertical } from "lucide-react";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/hooks/useAuth";
 import { logout } from "@/lib/api";
