@@ -446,15 +446,56 @@ export async function deleteOrder(id: string) {
   return request(`/api/orders/${id}`, { method: "DELETE" });
 }
 
-// deliverers / admin clients (kept for phase 2)
+// deliverers (admin)
 export async function getDeliverers() { return request<any[]>("/api/deliverers"); }
+export async function createDeliverer(payload: { nome: string; email: string; password: string; telefone?: string; comissao?: number }) {
+  return request<any>("/api/deliverers", { method: "POST", body: payload });
+}
+export async function updateDeliverer(id: string, payload: any) {
+  return request<any>(`/api/deliverers/${id}`, { method: "PUT", body: payload });
+}
+export async function deleteDeliverer(id: string) {
+  return request(`/api/deliverers/${id}`, { method: "DELETE" });
+}
+export async function getDelivererStats(id: string, params: Record<string, any> = {}) {
+  const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "") as any).toString();
+  return request<any>(`/api/deliverers/admin/${id}/stats${qs ? `?${qs}` : ""}`);
+}
+export async function getDelivererHistory(id: string, params: Record<string, any> = {}) {
+  const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "") as any).toString();
+  return request<any>(`/api/deliverers/admin/${id}/history${qs ? `?${qs}` : ""}`);
+}
+export async function resetDelivererPassword(id: string, password: string) {
+  return request(`/api/deliverers/admin/${id}/reset-password`, { method: "PATCH", body: { password } });
+}
+
+// deliverers (self)
 export async function getMyDeliveries() { return request<any[]>("/api/deliverers/me/orders"); }
+export async function getMyDeliveryStats(params: Record<string, any> = {}) {
+  const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "") as any).toString();
+  return request<any>(`/api/deliverers/me/stats${qs ? `?${qs}` : ""}`);
+}
+export async function getMyDeliveryHistory(params: Record<string, any> = {}) {
+  const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "") as any).toString();
+  return request<any>(`/api/deliverers/me/history${qs ? `?${qs}` : ""}`);
+}
 export async function updateDeliveryStatus(orderId: string, status: string) {
   return request(`/api/deliverers/orders/${orderId}/status`, { method: "PUT", body: { status } });
 }
+export async function changeMyDriverPassword(currentPassword: string, newPassword: string) {
+  return request(`/api/deliverers/me/password`, { method: "PATCH", body: { currentPassword, newPassword } });
+}
+
+// admin clients
 export async function getClients(params: Record<string, any> = {}) {
   const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "") as any).toString();
-  return request<any[]>(`/api/admin/clients${qs ? `?${qs}` : ""}`);
+  return request<{ items: any[]; pagination: any }>(`/api/admin/clients${qs ? `?${qs}` : ""}`);
+}
+export async function getClientById(id: string) {
+  return request<any>(`/api/admin/clients/${id}`);
+}
+export async function updateClient(id: string, payload: any) {
+  return request<any>(`/api/admin/clients/${id}`, { method: "PATCH", body: payload });
 }
 
 // media
