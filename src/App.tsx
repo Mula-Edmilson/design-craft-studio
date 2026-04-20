@@ -15,7 +15,10 @@ import CustomOrder from "./pages/CustomOrder";
 import ClienteLogin from "./pages/ClienteLogin";
 import ClientePainel from "./pages/ClientePainel";
 import Pedidos from "./pages/Pedidos";
-import StaffPlaceholder from "./pages/StaffPlaceholder";
+import AdminLogin from "./pages/AdminLogin";
+import AdminPainel from "./pages/AdminPainel";
+import EntregaLogin from "./pages/EntregaLogin";
+import EntregaPainel from "./pages/EntregaPainel";
 import NotFound from "./pages/NotFound.tsx";
 
 // Initialize API client (registers window.api for legacy compat)
@@ -41,10 +44,10 @@ const App = () => (
             <Route path="/cliente-login" element={<ClienteLogin />} />
             <Route path="/cliente-painel" element={<ClientePainel />} />
             <Route path="/pedidos" element={<Pedidos />} />
-            <Route path="/login" element={<StaffPlaceholder title="Login Staff" description="Painel administrativo PrintPalette." />} />
-            <Route path="/admin" element={<StaffPlaceholder title="Painel Admin" description="Gestão de produtos, encomendas, clientes e equipa." />} />
-            <Route path="/entrega-login" element={<StaffPlaceholder title="Login Entregadores" description="Acesso para a equipa de entregas." />} />
-            <Route path="/entrega-painel" element={<StaffPlaceholder title="Painel de Entregas" description="As suas entregas em curso." />} />
+            <Route path="/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminPainel />} />
+            <Route path="/entrega-login" element={<EntregaLogin />} />
+            <Route path="/entrega-painel" element={<EntregaPainel />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
